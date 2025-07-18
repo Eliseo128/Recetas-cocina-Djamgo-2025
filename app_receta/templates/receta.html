@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block inicio %}
+ 
+
+<style>
+  .text{
+    color: green;
+    font-weight: bold;
+  }
+</style>
+ 
+<div class="container mt-5">
+    
+    <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h2 class="text  text-center"> Recetas Machine </h2>
+        <br>
+        <h3>Agregar Receta</h3>
+        <hr>
+        <div class="form-group">
+          <label for="nombre_receta">Nombre de la receta</label>
+          <input name="nombre_receta" type="text" class="form-control"  required>
+         </div>
+        <div class="form-group">
+          <label for="descripcion_receta"  >Descripcion de la receta</label>
+          <textarea name="descripcion_receta" type="text" class="form-control" required ></textarea>
+        </div>
+        <div class="form-group">
+            <label for="imagen_receta">Foto Receta</label>
+            <input name="imagen_receta" type="file" class="form-control" >
+          </div>
+       
+        <button type="submit" class="btn btn-success">Agregar Receta</button>
+      </form>
+ 
+      <hr>
+      <div class="class mt-5">
+        <form action="">
+ 
+          <div class="max-auto col-6">
+            <div class="form-group">
+              <label for="buscar">Buscar Comida</label>
+              <input name="buscar" type="text" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary "> Buscar</button>
+          </form>
+        </div>
+      </div>
+      <table class="table mt-5">
+        <thead>
+ 
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre Receta</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Foto</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for receta in las_recetas %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{receta.nombre_receta}}</td>
+            <td style="max-width: 250px; word-wrap: break-word; white-space: normal;">
+            {{ receta.descripcion_receta }}
+            </td>
+
+            <td>
+                <img src="/media/{{receta.imagen_receta}}" style="height: 100px;">
+
+             </td>
+                <td>
+                    <a href="/borrar_receta/{{receta.id }}" class="btn btn-danger m-2">Borrar</a>
+                    <a href="/actualizar_receta/{{receta.id}}" class="btn btn-success">Actualizar</a>
+                </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+       
+</div>
+ 
+{% endblock inicio %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block inicio %}
+ 
+
+<style>
+  .text{
+    color: green;
+    font-weight: bold;
+  }
+</style>
+ 
+<div class="container mt-5">
+ 
+  <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2 class="text  text-center"> Recetas Machine </h2>
+     
+    <h3>Update Recipe</h3>
+    <hr>
+    <div class="form-group">
+      <label for="nombre_receta">Nombre Receta</label>
+      <input name="nombre_receta" value="{{receta.nombre_receta}}" type="text" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="descripcion_receta">Descripcion Receta</label>
+      <textarea name="recipe_description" class="form-control" required>{{receta.descripcion_receta}}</textarea>
+    </div>
+
+      <div class="form-group">
+        <label for="imagen_receta">Foto Receta Actual</label><br>
+        <img src="{{ receta.imagen_receta.url }}" alt="Foto actual" style="height: 100px;">
+      </div>
+
+      <div class="form-group">
+        <label for="imagen_receta">Cambiar Foto Receta (opcional)</label>
+        <input name="imagen_receta" type="file" class="form-control">
+      </div>
+
+ 
+    <button type="submit" class="btn btn-success">Actualizar Receta</button>
+  </form>
+ 
+ 
+</div>
+ 
+{% endblock inicio %}
